@@ -18,6 +18,6 @@ jobs:
             - run:
                 name: Creating CMAKE Files
                 command: 'cmake .'
-            -run:
+            - run:
                 name: Build
                 command: 'make'
