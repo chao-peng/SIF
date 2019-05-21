@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/chao-peng/SIF.svg?style=svg)](https://circleci.com/gh/chao-peng/SIF)
+
+
 # SIF
 Solidity Instrumentation Framework
 
