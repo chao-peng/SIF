@@ -5,6 +5,7 @@
 #include <string>
 
 #include "ASTAnalyser.hpp"
+#include "ASTVisitor.hpp"
 
 namespace Sif{
 
@@ -29,7 +30,7 @@ ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsona
 }
 
 std::stringstream ASTAnalyser::analyse() {
-
+    before();
     std::stringstream result;
     std::string line;
     while (ptr_ast_line != ast_lines.end()) {
@@ -247,6 +248,7 @@ std::stringstream ASTAnalyser::analyse() {
     }
 
     Utils::debug_info("New code generated");
+    after();
     return result;
 }
 
