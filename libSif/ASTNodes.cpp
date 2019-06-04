@@ -685,12 +685,12 @@ std::string FunctionDefinitionNode::source_code(Indentation& _indentation) {
     Indentation empty_indentation(0);
     if (name == "") {
         if (is_constructor) {
-            result = "constructor" + params->source_code(empty_indentation);
+            result = result + "constructor" + params->source_code(empty_indentation);
         } else {
-            result = "function " + params->source_code(empty_indentation);
+            result = result + "function " + params->source_code(empty_indentation);
         }
     } else {
-        result = "function " + name + params->source_code(empty_indentation);
+        result = result + "function " + name + params->source_code(empty_indentation);
     }
     if (qualifier != "") result = result + " " + qualifier;
     if (modifier_invocation.size() != 0) {
