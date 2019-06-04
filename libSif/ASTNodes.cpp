@@ -549,7 +549,7 @@ std::string BlockNode::source_code(Indentation& _indentation) {
         result = result + (*it)->source_code(_indentation) + "\n";
     }
     _indentation--;
-    result = _indentation + result + "}";
+    result = result + _indentation + "}";
     return result;
 }
 
@@ -946,8 +946,9 @@ ASTNodePtr ContractDefinitionNode::operator[] (const unsigned int& x) {
 std::string IfStatementNode::source_code(Indentation& _indentation) {
     visit(this);
     Indentation empty_indentation(0);
-    std::string result = _indentation + "if (" + condition->source_code(_indentation) + ") " + if_then->source_code(_indentation) + "\n";
-    if (if_else != nullptr) result = result + " else \n" + if_else->source_code(_indentation) + "\n";
+    std::string result = _indentation + "if (" + condition->source_code(empty_indentation) + ") " + if_then->source_code(_indentation);
+    if (if_else != nullptr) result = result + " else " + if_else->source_code(_indentation) + "\n";
+    else result = result  + "\n";
     return result; 
 }
 
