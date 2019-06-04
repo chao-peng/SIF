@@ -223,7 +223,11 @@ std::string VariableDeclarationStatementNode::source_code(Indentation& _indentat
     visit(this);
     std::string result;
     Indentation empty_indentation(0);
-    result = _indentation + decl->source_code(empty_indentation) + " = " + value->source_code(empty_indentation) + ";";
+    if (value == nullptr) {
+        result = _indentation + decl->source_code(empty_indentation) + ";";
+    } else {
+        result = _indentation + decl->source_code(empty_indentation) + " = " + value->source_code(empty_indentation) + ";";
+    }
     return result;
 }
 
