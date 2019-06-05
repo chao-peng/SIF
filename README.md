@@ -47,7 +47,17 @@ void visit(ASTNode* node) {
 }
 ```
 
-Each AST class has sufficient functions to retrieve information and make changes to the AST. Function prototypes can be found in LibSif/ASTNode.hpp. We are writing a documentation on this.
+Each AST class has sufficient functions to retrieve information and make changes to the AST. Function prototypes can be found in LibSif/ASTNode.hpp.
+
+# Use Cases
+
+In the directory **Use_Case**, we provide two examples of using SIF to analyse the source code.
+
+**CG_Generator** is easy to follow, it generates a control graph for the smart contract by recording function calls.
+
+**CFG_Generator** can be used to generate control-flow graphs for functions. It supports control flows including branches and loops.
+
+Both tools can be compiled by replacing the original ASTVisitor.cpp by the one you want to use. Our graph generation is based on the graphviz toolkit. Make sure you have the tool on your machine and the command "dot" is available. On Ubuntu, you can simply install grahviz by sudo apt install graphviz.
 
 # Contact 
 
