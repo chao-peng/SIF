@@ -9,7 +9,7 @@
 #include <cxxopts.hpp>
 
 int main(int argc, char** argv){
-    std::string ast_file_name, ast_json_file_name, output_file_name;
+    std::string ast_file_name, ast_json_file_name, output_file_name, visitor_arg;
     try{
         cxxopts::Options options("Sif", "Solidity Source Code Instrumentation Framework");
         options.add_options()
@@ -17,7 +17,8 @@ int main(int argc, char** argv){
             ("j,json", "AST in compact JSON format file name", cxxopts::value<std::string>())
             //("b,abi", "ABI file name", cxxopts::value<std::string>())
             ("o,output","Output file name", cxxopts::value<std::string>())
-            ("h,help", "Print help message");
+            ("h,help", "Print help message")
+            ("v,visitor_arg", "AST visitor arguments", cxxopts::value<std::string>());
         auto result = options.parse(argc, argv);
         if (result.count("help")) {
             std::cout << options.help({"", "Group"}) << std::endl;
@@ -34,6 +35,11 @@ int main(int argc, char** argv){
         } else {
             std::cout << "JSON AST file not provided\n";
             exit(Sif::ErrorCode::JSON_AST_FILE_NOT_PROVIDED);
+        }
+        if (result.count("visitor_arg")) {
+            visitor_arg = result["visitor_arg"].as<std::string>();
+        } else {
+            visitor_arg = "";
         }
         //if (result.count("abi")) {
         //    abi_file_name = result["abi"].as<std::string>();
@@ -74,7 +80,7 @@ int main(int argc, char** argv){
     }
     if (ast_json_content != "") {
         nlohmann::json ast_json = nlohmann::json::parse(ast_json_content);
-        Sif::ASTAnalyser ast_analyser(ast_text_stream, ast_json, true, sol_name);
+        Sif::ASTAnalyser ast_analyser(ast_text_stream, ast_json, true, sol_name, visitor_arg);
         std::stringstream new_source = ast_analyser.analyse();
         std::cout << sol_name << " " << ast_json.at("absolutePath") << std::endl;
         if (output_file_name != "") {

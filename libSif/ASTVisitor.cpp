@@ -2,7 +2,7 @@
 
 namespace Sif {
 
-void before() {
+void before(std::string arg) {
 
 }
 

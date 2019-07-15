@@ -23,7 +23,7 @@ namespace Sif{
 
 class ASTAnalyser {
 public:
-    ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name);
+    ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name, std::string _visitor_arg);
     std::stringstream analyse();
 
 private:
@@ -34,6 +34,7 @@ private:
     ContractDefinitionNodePtr current_contract;
     std::string current_contract_name;
     unsigned int num_functions_current_contract;
+    std::string visitor_arg;
 
     void get_next_token(const std::string& token);
     std::string get_next_token();

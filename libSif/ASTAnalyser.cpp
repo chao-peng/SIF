@@ -9,7 +9,7 @@
 
 namespace Sif{
 
-ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name) {
+ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name, std::string _visitor_arg) {
     std::string new_line;
     while (std::getline(_ast_sstream, new_line)) {
         //Utils::trim(new_line);
@@ -21,6 +21,7 @@ ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsona
     ast_json = _jsonast;
     ptr_ast_line = ast_lines.begin();
     num_functions_current_contract = 0;
+    visitor_arg = _visitor_arg;
 
     if (single_file) {
         while (Utils::substr_by_edge(*ptr_ast_line, "======= ", " =======") != file_name) {
@@ -30,7 +31,7 @@ ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsona
 }
 
 std::stringstream ASTAnalyser::analyse() {
-    before();
+    before(visitor_arg);
     std::stringstream result;
     std::string line;
     while (ptr_ast_line != ast_lines.end()) {

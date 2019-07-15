@@ -4,7 +4,7 @@
 #include "ASTNodes.hpp"
 
 namespace Sif {
-    void before();
+    void before(std::string arg = "");
     void visit(ASTNode* node);
     void after();
 }
