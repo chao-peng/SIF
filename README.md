@@ -2,7 +2,9 @@
 
 
 # SIF
-Solidity Instrumentation Framework
+SIF (Solidity Instrumentation Framework) is a framework to query and instrument Solidity smart contracts.
+
+With SIF, you can easily query syntactic information from the AST of smart contracts and make changes to it. SIF is able to generate source code from the AST of Solidity contracts reflecting code instrumentations.
 
 # Pre-requisite
 
@@ -24,8 +26,11 @@ The executable called sif will be in folder build/sif/sif
 
 ```bash
 # Generate ASTs 
+# Generate Text AST
 solc --ast contract_name.sol >> contract_name.ast
-solc --ast-compact-json contract_name.sol contract_name.json
+# Generate JSON AST
+solc --ast-compact-json contract_name.sol >> contract_name.json
+# Run SIF
 sif -a contract_name.ast -j contract_name.json -o generated_contract.sol
 ```
 
@@ -49,15 +54,28 @@ void visit(ASTNode* node) {
 
 Each AST class has sufficient functions to retrieve information and make changes to the AST. Function prototypes can be found in LibSif/ASTNode.hpp.
 
-# Use Cases
+# Tools
 
-In the directory **Use_Case**, we provide two examples of using SIF to analyse the source code.
+In the directory **Tools**, we provide 7 examples of using SIF to analyse the source code. You can learn how to use SIF to instrument smart contracts by reading our implementation of these tools.
+
+**Assertion Analyser** inserts property assertions to operations susceptible to arithmetic vulnerabilities.
+
+**AST Diff** compares smart contracts in syntax level.
 
 **CG_Generator** is easy to follow, it generates a control graph for the smart contract by recording function calls.
 
 **CFG_Generator** can be used to generate control-flow graphs for functions. It supports control flows including branches and loops.
 
-Both tools can be compiled by replacing the original ASTVisitor.cpp by the one you want to use. Our graph generation is based on the graphviz toolkit. Make sure you have the tool on your machine and the command "dot" is available. On Ubuntu, you can simply install grahviz by sudo apt install graphviz.
+**Fault Seeder** seeds faults to smart contracts.
+
+**Function Listing** lists function definitions and in which contracts they are defined.
+
+**Sif Rename** renames existing identifiers.
+
+Both tools can be compiled by replacing the original ASTVisitor.cpp by the one you want to use. Our graph generation is based on the graphviz toolkit. Make sure you have the tool on your machine and the command "dot" is available. On Ubuntu, you can simply install grahviz by using the command
+```bash
+sudo apt install graphviz.
+```
 
 # Contact 
 
