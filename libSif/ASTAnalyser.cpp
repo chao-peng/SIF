@@ -180,11 +180,11 @@ std::stringstream ASTAnalyser::analyse() {
         } else if (keyword == TokenFunctionTypeName ) {
             // not handled at top level
         } else if (keyword == TokenMapping ) {
-
+            // not handled at top level
         } else if (keyword == TokenArrayTypeName ) {
             // not handled at top level
         } else if (keyword == TokenInlineAssembly ) {
-
+            // not handled at top level
         } else if (keyword == TokenBlock ) {
             BlockNodePtr block_node = handle_block();
             current_contract->add_member(block_node);
@@ -775,9 +775,9 @@ ASTNodePtr ASTAnalyser::get_type_name(std::string& token) {
         ASTNodePtr index = nullptr;
         //try to find out the index of the array
         int indentation = get_current_indentation();
-        std::string token = get_next_token();
-        if (token != "" && indentation < get_current_indentation()) {
-            index = get_value_equivalent_node(token);
+        std::string next_token = get_next_token();
+        if (next_token != "" && indentation < get_current_indentation()) {
+            index = get_value_equivalent_node(next_token);
         } else {
             --ptr_ast_line;
         } 
@@ -786,10 +786,10 @@ ASTNodePtr ASTAnalyser::get_type_name(std::string& token) {
         type_str = Utils::substr_by_edge(*ptr_ast_line, TokenUserDefinedTypeName + " \"", "\"");
         type_name = std::make_shared<UserDefinedTypeNameNode>(type_str);
     } else if (token == TokenMapping) {
-        std::string token = get_next_token();
-        ASTNodePtr key_type = get_type_name(token);
-        token = get_next_token();
-        ASTNodePtr value_type = get_type_name(token);
+        std::string next_token = get_next_token();
+        ASTNodePtr key_type = get_type_name(next_token);
+        next_token = get_next_token();
+        ASTNodePtr value_type = get_type_name(next_token);
         type_name = std::make_shared<MappingNode>(key_type, value_type);
     }
     return type_name;

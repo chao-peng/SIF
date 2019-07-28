@@ -216,6 +216,7 @@ public:
     Indentation operator++(int);
     Indentation& operator--();
     Indentation operator--(int);
+    Indentation& operator=(const Indentation& _indentation );
 private:
     int tab_width;
     bool use_spaces;

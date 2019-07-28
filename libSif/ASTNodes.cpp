@@ -37,6 +37,13 @@ Indentation Indentation::operator--(int) {
     return result;
 }
 
+Indentation& Indentation::operator=(const Indentation& _indentation ) {
+    tab_width = _indentation.tab_width;
+    use_spaces = _indentation.use_spaces;
+    current_tab_width = _indentation.current_tab_width;
+    return *this;
+}
+
 std::string Indentation::str() const {
     std::string result;
     for (int i = 0; i < current_tab_width; ++i) {
@@ -1060,7 +1067,7 @@ std::string ForStatementNode::source_code(Indentation& _indentation) {
     if (increment != nullptr) {
         increment_str = increment->source_code(empty_indentation);
         size_t increment_str_len = increment_str.length();
-        for (auto i = increment_str.length() - 1; i >= 0; --i) {
+        for (int i = increment_str.length() - 1; i >= 0; --i) {
             char ch = increment_str[i];
             if (ch == ' ' || ch == '\n') {
                 --increment_str_len;
