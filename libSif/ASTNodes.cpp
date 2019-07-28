@@ -1334,7 +1334,7 @@ std::string FunctionTypeNameNode::source_code(Indentation& _indentation) {
     Indentation empty_indentation(0);
     std::string result = text_before + _indentation + "function" + params->source_code(empty_indentation);
     if (returns->size()) result = result + " returns" + returns->source_code(empty_indentation);
-    result = result + text_after
+    result = result + text_after;
     return result;
 }
 
