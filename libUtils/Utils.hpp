@@ -10,7 +10,7 @@
 
 namespace Sif{
 namespace Utils{
-    void debug_info(std::string _info);
+    void debug_info(const std::string& _info);
 
     // trim string from left side
     void ltrim(std::string& _str);

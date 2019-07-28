@@ -2,7 +2,7 @@
 
 namespace Sif{
 namespace Utils{
-    void debug_info(std::string _info) {
+    void debug_info(const std::string& _info) {
         if (std::getenv("SIF_DEBUG") != nullptr) {
             std::cerr << "[SIF_DEBUG_INFO]" << _info << "\n";
         }

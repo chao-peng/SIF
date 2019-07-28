@@ -207,7 +207,7 @@ typedef std::vector<std::string> Literals;
 class Indentation {
 public:
     Indentation() : tab_width(4), use_spaces(true), current_tab_width(0) {}
-    Indentation(const int& _tab_width) : tab_width(_tab_width), use_spaces(true), current_tab_width(0) {}
+    explicit Indentation(const int& _tab_width) : tab_width(_tab_width), use_spaces(true), current_tab_width(0) {}
     Indentation(const int& _tab_width, const bool& _use_spaces) : tab_width(_tab_width), use_spaces(_use_spaces), current_tab_width(0) {}
     Indentation(const int& _tab_width, const bool& _use_spaces, const int& _current_tab_width) : tab_width(_tab_width), use_spaces(_use_spaces), current_tab_width(_current_tab_width) {}
     Indentation(const Indentation& _indentation);
@@ -275,7 +275,7 @@ typedef std::shared_ptr<PragmaDirectiveNode> PragmaDirectiveNodePtr;
 class ImportDirectiveNode : public ASTNode {
 public:
     ImportDirectiveNode() : ASTNode(NodeTypeImportDirective), original(""), file(""), symbol_aliases(""), unit_alias("") {}
-    ImportDirectiveNode(const std::string& _original) : ASTNode(NodeTypeImportDirective), original(_original) {}
+    explicit ImportDirectiveNode(const std::string& _original) : ASTNode(NodeTypeImportDirective), original(_original) {}
     void set_file(const std::string& _file);
     void set_symbol_aliases(const std::string& _symbol_aliases);
     void set_unit_alias(const std::string& _unit_aliases);
@@ -343,7 +343,7 @@ typedef std::shared_ptr<VariableDeclarationStatementNode> VariableDeclarationSta
 
 class IdentifierNode : public ASTNode {
 public:
-    IdentifierNode(std::string _name) : ASTNode(NodeTypeIdentifier), name(_name) {}
+    explicit IdentifierNode(const std::string& _name) : ASTNode(NodeTypeIdentifier), name(_name) {}
     std::string source_code(Indentation& _indentation);
     std::string get_name() const;
     void set_name(const std::string& _name);
@@ -354,7 +354,7 @@ typedef std::shared_ptr<IdentifierNode> IdentifierNodePtr;
 
 class StructDefinitionNode : public ASTNode {
 public:
-    StructDefinitionNode(std::string _name) : ASTNode(NodeTypeStructDefinition), name(_name) {};
+    explicit StructDefinitionNode(const std::string& _name) : ASTNode(NodeTypeStructDefinition), name(_name) {};
     std::string source_code(Indentation& _indentation);
     std::string get_name() const;
     void set_name(const std::string& _name);
@@ -384,7 +384,7 @@ typedef std::shared_ptr<ParameterListNode> ParameterListNodePtr;
 
 class EventDefinitionNode : public ASTNode {
 public:
-    EventDefinitionNode(std::string _name) : ASTNode(NodeTypeEventDefinition), name(_name) {}
+    explicit EventDefinitionNode(const std::string& _name) : ASTNode(NodeTypeEventDefinition), name(_name) {}
     std::string source_code(Indentation& _indentation);
     std::string get_name() const;
     void set_name(const std::string& _name);
@@ -471,7 +471,7 @@ typedef std::shared_ptr<UnaryOperationNode> UnaryOperationNodePtr;
 
 class LiteralNode : public ASTNode {
 public:
-    LiteralNode(std::string _literal) : ASTNode(NodeTypeLiteral), literal(_literal) {}
+    explicit LiteralNode(const std::string& _literal) : ASTNode(NodeTypeLiteral), literal(_literal) {}
     std::string source_code(Indentation& _indentation);
     void set_literal(const std::string& _literal);
     std::string get_literal() const;
@@ -511,7 +511,7 @@ typedef std::shared_ptr<BlockNode> BlockNodePtr;
 class ReturnNode : public ASTNode {
 public:
     ReturnNode() : ASTNode(NodeTypeReturn) {}
-    ReturnNode(ASTNodePtr _operand) : ASTNode(NodeTypeReturn), operand(_operand) {}
+    explicit ReturnNode(ASTNodePtr _operand) : ASTNode(NodeTypeReturn), operand(_operand) {}
     std::string source_code(Indentation& _indentation);
     ASTNodePtr get_operand() const;
     void set_operand(const ASTNodePtr& _operand);
@@ -541,8 +541,7 @@ typedef std::shared_ptr<ModifierDefinitionNode> ModifierDefinitionNodePtr;
 class ModifierInvocationNode : public ASTNode {
 public:
     ModifierInvocationNode() : ASTNode(NodeTypeModifierInvocation) {}
-    ModifierInvocationNode(std::string _name) : ASTNode(NodeTypeModifierInvocation), name(_name) {}
-    ModifierInvocationNode(std::string _name, ParameterListNodePtr _params) : ASTNode(NodeTypeModifierInvocation), name(_name){}
+    explicit ModifierInvocationNode(const std::string& _name) : ASTNode(NodeTypeModifierInvocation), name(_name) {}
     std::string source_code(Indentation& _indentation);
     void add_argument(const ASTNodePtr& _node);
     void delete_argument(const unsigned int& x);
@@ -559,8 +558,8 @@ typedef std::shared_ptr<ModifierInvocationNode> ModifierInvocationNodePtr;
 
 class FunctionDefinitionNode : public ASTNode {
 public:
-    FunctionDefinitionNode() : ASTNode(NodeTypeFunctionDefinition) {};
-    FunctionDefinitionNode(std::string& _name, std::string& _qualifier, ParameterListNodePtr _params, ParameterListNodePtr _returns, BlockNodePtr _function_body) : ASTNode(NodeTypeFunctionDefinition), name(_name), qualifier(_qualifier), params(_params), returns(_returns), function_body(_function_body) {}
+    FunctionDefinitionNode() : ASTNode(NodeTypeFunctionDefinition), is_constructor(false) {};
+    FunctionDefinitionNode(std::string& _name, std::string& _qualifier, ParameterListNodePtr _params, ParameterListNodePtr _returns, BlockNodePtr _function_body) : ASTNode(NodeTypeFunctionDefinition), name(_name), qualifier(_qualifier), params(_params), returns(_returns), function_body(_function_body), is_constructor(false) {}
     std::string source_code(Indentation& _indentation);
     void add_modifier_invocation(const ModifierInvocationNodePtr& _node);
     void delete_modifier_invocation(const unsigned int& x);
@@ -592,7 +591,7 @@ typedef std::shared_ptr<FunctionDefinitionNode> FunctionDefinitionNodePtr;
 
 class FunctionCallNode : public ASTNode {
 public:
-    FunctionCallNode(ASTNodePtr _callee) : ASTNode(NodeTypeFunctionCall), callee(_callee) {}
+    explicit FunctionCallNode(ASTNodePtr _callee) : ASTNode(NodeTypeFunctionCall), callee(_callee) {}
     std::string source_code(Indentation& _indentation);
     void add_argument(const ASTNodePtr& _node);
     void delete_argument(const unsigned int& x);
@@ -623,7 +622,7 @@ typedef std::shared_ptr<MemberAccessNode> MemberAccessNodePtr;
 
 class ElementaryTypeNameExpressionNode : public ASTNode{
 public:
-    ElementaryTypeNameExpressionNode(std::string& _name) : ASTNode(NodeTypeElementaryTypeNameExpression), name(_name) {}
+    explicit ElementaryTypeNameExpressionNode(std::string& _name) : ASTNode(NodeTypeElementaryTypeNameExpression), name(_name) {}
     std::string source_code(Indentation& _indentation);
     std::string get_name() const;
     void set_name(const std::string& _name);
@@ -634,7 +633,7 @@ typedef std::shared_ptr<ElementaryTypeNameExpressionNode> ElementaryTypeNameExpr
 
 class ContractDefinitionNode : public ASTNode {
 public:
-    ContractDefinitionNode(std::string& _name) : ASTNode(NodeTypeContractDefinition), name(_name), inherit_from{}, is_library(false) {}
+    explicit ContractDefinitionNode(std::string& _name) : ASTNode(NodeTypeContractDefinition), name(_name), inherit_from{}, is_library(false) {}
     std::string source_code(Indentation& _indentation);
     void add_inherit_from(const std::string& _inherit_from);
     void delete_inherit_from(const unsigned int& x);
@@ -745,7 +744,7 @@ typedef std::shared_ptr<ConditionalNode> ConditionalNodePtr;
 class AssignmentNode : public ASTNode {
 public:
     AssignmentNode() : ASTNode(NodeTypeAssignment) {}
-    AssignmentNode(std::string _op) : ASTNode(NodeTypeAssignment), op(_op) {}
+    explicit AssignmentNode(const std::string& _op) : ASTNode(NodeTypeAssignment), op(_op) {}
     std::string source_code(Indentation& _indentation);
     std::string get_operator() const;
     void set_operator(const std::string& _operator);
@@ -776,7 +775,7 @@ typedef std::shared_ptr<ContinueNode> ContinueNodePtr;
 
 class NewExpresionNode : public ASTNode {
 public:
-    NewExpresionNode(ASTNodePtr _type_name) : ASTNode(NodeTypeNewExpression), type_name(_type_name) {}
+    explicit NewExpresionNode(ASTNodePtr _type_name) : ASTNode(NodeTypeNewExpression), type_name(_type_name) {}
     std::string source_code(Indentation& _indentation);
     void set_type_name(const ASTNodePtr& _type_name);
     ASTNodePtr get_type_name() const;
@@ -787,7 +786,7 @@ typedef std::shared_ptr<NewExpresionNode> NewExpresionNodePtr;
 
 class EnumDefinitionNode : public ASTNode {
 public:
-    EnumDefinitionNode(std::string _name) : ASTNode(NodeTypeEnumDefinition), name(_name) {}
+    explicit EnumDefinitionNode(const std::string& _name) : ASTNode(NodeTypeEnumDefinition), name(_name) {}
     std::string source_code(Indentation& _indentation);
     void add_member(const ASTNodePtr& _node);
     void delete_member(const unsigned int& x);
@@ -803,7 +802,7 @@ typedef std::shared_ptr<EnumDefinitionNode> EnumDefinitionNodePtr;
 
 class EnumValueNode : public ASTNode {
 public:
-    EnumValueNode(std::string _name) : ASTNode(NodeTypeEnumValue), name(_name) {}
+    explicit EnumValueNode(const std::string& _name) : ASTNode(NodeTypeEnumValue), name(_name) {}
     std::string source_code(Indentation& _indentation);
     std::string get_name() const;
     void set_name(const std::string& _name);
@@ -821,7 +820,7 @@ typedef std::shared_ptr<ThrowNode> ThrowNodePtr;
 
 class PlaceHolderStatement : public ASTNode {
 public:
-    PlaceHolderStatement(std::string _place_holder) : ASTNode(NodeTypePlaceholderStatement), placeholder(_place_holder) {};
+    explicit PlaceHolderStatement(const std::string& _place_holder) : ASTNode(NodeTypePlaceholderStatement), placeholder(_place_holder) {};
     std::string source_code(Indentation& _indentation);
     std::string get_placeholder() const;
     void set_placeholder(const std::string& _placeholder);
@@ -846,7 +845,7 @@ typedef std::shared_ptr<MappingNode> MappingNodePtr;
 
 class ElementaryTypeNameNode : public ASTNode {
 public:
-    ElementaryTypeNameNode(std::string _type_name) : ASTNode(NodeTypeElementaryTypeName), type_name(_type_name) {}
+    explicit ElementaryTypeNameNode(const std::string& _type_name) : ASTNode(NodeTypeElementaryTypeName), type_name(_type_name) {}
     std::string source_code(Indentation& _indentation);
     void set_type_name(const std::string& _type_name);
     std::string get_type_name() const;
@@ -857,7 +856,7 @@ typedef std::shared_ptr<ElementaryTypeNameNode> ElementaryTypeNameNodePtr;
 
 class UserDefinedTypeNameNode : public ASTNode {
 public:
-    UserDefinedTypeNameNode(std::string _type_name) : ASTNode(NodeTypeUserDefinedTypeName), type_name(_type_name) {}
+    explicit UserDefinedTypeNameNode(const std::string& _type_name) : ASTNode(NodeTypeUserDefinedTypeName), type_name(_type_name) {}
     std::string source_code(Indentation& _indentation);
     void set_type_name(const std::string& _type_name);
     std::string get_type_name() const;

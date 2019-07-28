@@ -3,7 +3,7 @@
 namespace Sif {
 
 void before(std::string arg) {
-
+    return;
 }
 
 void visit(ASTNode* node) {
@@ -11,7 +11,7 @@ void visit(ASTNode* node) {
 }
 
 void after() {
-
+    return;
 }
 
 }

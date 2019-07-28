@@ -9,7 +9,7 @@
 
 namespace Sif{
 
-ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name, std::string _visitor_arg) {
+ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, const bool& single_file, const std::string& file_name, const std::string& _visitor_arg) {
     std::string new_line;
     while (std::getline(_ast_sstream, new_line)) {
         //Utils::trim(new_line);
@@ -61,7 +61,7 @@ std::stringstream ASTAnalyser::analyse() {
             current_contract_name = contract_name;
             get_next_token(TokenSource);
             line = Utils::substr_by_edge(*ptr_ast_line, "Source: \"", "\"");
-            if (line.find("library") == 0) {
+            if (line.find("library") != std::string::npos) {
                 current_contract->set_as_library();
             }
         } else if (keyword == TokenInheritanceSpecifier ) {
@@ -282,8 +282,8 @@ std::string ASTAnalyser::get_next_token() {
 }
 
 void ASTAnalyser::remove_escapes(std::string& _str){
-    std::string double_quote = "\"";
-    std::string double_quote_es = "\\\"";
+    //std::string double_quote = "\"";
+    //std::string double_quote_es = "\\\"";
     Utils::str_replace_all(_str, "\\\"", "\"");
     Utils::str_replace_all(_str, "\\\'", "\'");
     Utils::str_replace_all(_str, "\\\\", "\\");
@@ -362,7 +362,7 @@ ParameterListNodePtr ASTAnalyser::handle_parameter_list() {
         parameters->add_parameter(var_decl);
         token = get_next_token();
     }
-    ptr_ast_line--; // if the token cannot enter while, it is outside the parameter list
+    --ptr_ast_line; // if the token cannot enter while, it is outside the parameter list
     return parameters;
 }
 
@@ -398,7 +398,7 @@ BlockNodePtr ASTAnalyser::handle_block() {
         }*/
         token = get_next_token();
     }
-    ptr_ast_line--;
+    --ptr_ast_line;
     return block;
 }
 
@@ -800,8 +800,8 @@ ModifierInvocationNodePtr ASTAnalyser::handle_modifier_invocation() {
     modifier_name = Utils::substr_by_edge(modifier_name, "\"", "\"");
     ModifierInvocationNodePtr modifier_invocation = std::make_shared<ModifierInvocationNode>(modifier_name);
     int indentation = get_current_indentation();
-    std::string token = get_next_token(); // the token right after modifier invocation is an identifier token which is the name of the modifier
-    token = get_next_token();
+    get_next_token(); // the token right after modifier invocation is an identifier token which is the name of the modifier
+    std::string token = get_next_token();
     while (token != "" && indentation < get_current_indentation()) {
         ASTNodePtr subnode = get_value_equivalent_node(token);
         modifier_invocation->add_argument(subnode);

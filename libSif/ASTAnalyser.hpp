@@ -23,7 +23,7 @@ namespace Sif{
 
 class ASTAnalyser {
 public:
-    ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, bool single_file, std::string file_name, std::string _visitor_arg);
+    ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsonast, const bool& single_file, const std::string& file_name, const std::string& _visitor_arg);
     std::stringstream analyse();
 
 private:
