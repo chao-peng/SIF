@@ -232,10 +232,14 @@ typedef std::shared_ptr<ASTNode> ASTNodePtr;
 
 class ASTNode {
 public:
-    explicit ASTNode(NodeType _node_type) : node_type(_node_type) {}
+    explicit ASTNode(NodeType _node_type) : node_type(_node_type), text_before(""), text_after("") {}
     virtual std::string source_code(Indentation& _indentation) = 0;
     NodeType get_node_type() const;
     size_t size();
+    void insert_text_before(const std::string& _text);
+    void insert_text_after(const std::string& _text);
+    std::string get_added_text_before() const;
+    std::string get_added_text_after() const;
 protected:
     void append_sub_node(const ASTNodePtr& _node);
     void delete_sub_node(const unsigned int& x);
@@ -245,6 +249,8 @@ protected:
 
     NodeType node_type;
     std::vector<ASTNodePtr> ast_nodes;
+    std::string text_before;
+    std::string text_after;
 };
 
 class RootNode : public ASTNode {
