@@ -902,14 +902,14 @@ std::string ContractDefinitionNode::source_code(Indentation& _indentation) {
         }
     }
     result = result + " {\n";
-    _indentation++;
+    ++_indentation;
     for (auto it = ast_nodes.begin(); it != ast_nodes.end(); ++it) {
         std::string sub_source_code = (*it)->source_code(_indentation);
         if ((*it)->get_node_type() == NodeTypeVariableDeclaration) sub_source_code = sub_source_code + ";"; // varibale declared in contract-level needs a ';'
         sub_source_code = sub_source_code + "\n";
         result = result + sub_source_code;
     }
-    _indentation--;
+    --_indentation;
     result = _indentation + result + "}\n" + text_after;
     return result;
 }

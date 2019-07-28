@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/chao-peng/SIF.svg?style=svg)](https://circleci.com/gh/chao-peng/SIF)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/32646ea4bd9d4d54a743cba33acb33ec)](https://www.codacy.com/app/chao-peng/SIF?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chao-peng/SIF&amp;utm_campaign=Badge_Grade)
+[![MIT License](https://img.shields.io/github/license/chao-peng/sif)](https://raw.githubusercontent.com/chao-peng/SIF/master/LICENSE)
 
 # SIF
 SIF (Solidity Instrumentation Framework) is a framework to query and instrument Solidity smart contracts.
@@ -9,7 +10,6 @@ With SIF, you can easily query syntactic information from the AST of smart contr
 # Pre-requisite
 
 1. Download the Solidity Compiler from [here](https://github.com/ethereum/solidity/releases/tag/v0.4.25)
-
 2. Build SIF
 
 In this folder
