@@ -732,7 +732,7 @@ std::string FunctionDefinitionNode::source_code(Indentation& _indentation) {
     if (function_body == nullptr) {
         result = result + ";";
     } else {
-        result = result + function_body->source_code(_indentation) + "\n";
+        result = result + " " + function_body->source_code(_indentation) + "\n";
     }
     result = result + text_after;
     return result;
@@ -1011,7 +1011,7 @@ ASTNodePtr IfStatementNode::get_else() const{
 std::string DoWhileStatementNode::source_code(Indentation& _indentation) {
     visit(this);
     Indentation empty_indentation(0);
-    std::string result = text_before + _indentation + "do \n" + loop_body->source_code(_indentation) + " while (" + condition->source_code(empty_indentation) + ");\n" + text_after;
+    std::string result = text_before + _indentation + "do " + loop_body->source_code(_indentation) + " while (" + condition->source_code(empty_indentation) + ");\n" + text_after;
     return result;
 }
 
@@ -1034,7 +1034,7 @@ ASTNodePtr DoWhileStatementNode::get_loop_body() const{
 std::string WhileStatementNode::source_code(Indentation& _indentation) {
     visit(this);
     Indentation empty_indentation(0);
-    std::string result = text_before + _indentation + "while(" + condition->source_code(empty_indentation) + ")\n" + loop_body->source_code(_indentation) + "\n" + text_after;
+    std::string result = text_before + _indentation + "while(" + condition->source_code(empty_indentation) + ") " + loop_body->source_code(_indentation) + "\n" + text_after;
     return result;
 }
 
@@ -1082,7 +1082,7 @@ std::string ForStatementNode::source_code(Indentation& _indentation) {
     }
 
     std::string result = text_before 
-                         + _indentation + "for (" + init_str + condition_str + increment_str + ")\n" 
+                         + _indentation + "for (" + init_str + condition_str + increment_str + ") " 
                          + body->source_code(_indentation) + "\n"
                          + text_after;
     return result;
