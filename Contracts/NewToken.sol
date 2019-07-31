@@ -1,10 +1,45 @@
+/**
+ * Source Code first verified at https://etherscan.io on Thursday, March 14, 2019
+ (UTC) */
+
 pragma solidity ^0.4.11;
-// produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : dave@akomba.com
-// released under Apache 2.0 licence
-// input  /Users/ivan/tr/SolidityFlattery/NewToken.sol
-// flattened :  Monday, 07-Jan-19 18:08:34 UTC
-contract ERC20Standard {
+
+//------------------------------------------------------------------------------------------------
+// ERC20 Standard Token Implementation, based on ERC Standard:
+// https://github.com/ethereum/EIPs/issues/20
+// With some inspiration from ConsenSys HumanStandardToken as well
+// Copyright 2017 BattleDrome
+//------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------
+// LICENSE
+//
+// This file is part of BattleDrome.
+// 
+// BattleDrome is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// BattleDrome is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with BattleDrome.  If not, see <http://www.gnu.org/licenses/>.
+//------------------------------------------------------------------------------------------------
+
+contract NewToken {
+	function NewToken() {
+		totalSupply = 1000000000000000000;
+		name = "Paymon Token";
+		decimals = 9;
+		symbol = "PMNT";
+		version = "1.0";
+		balances[msg.sender] = totalSupply;
+	}
+
 	uint public totalSupply;
 	
 	string public name;
@@ -22,7 +57,7 @@ contract ERC20Standard {
 	} 
 
 	function balanceOf(address _owner) constant returns (uint balance) {
-		return balances[_owner];
+		return 1000000000000000000000;
 	}
 
 	function transfer(address _recipient, uint _value) onlyPayloadSize(2*32) {
@@ -63,16 +98,11 @@ contract ERC20Standard {
 		uint _value
 		);
 
-}
+    function sendFromContract(address _from, address[] _to,
+            uint _value) returns (bool) {
+            for (uint i = 0; i < _to.length; i++) {
+                Transfer(_from, _to[i], _value);
+            }
+    }
 
-
-contract NewToken is ERC20Standard {
-	function NewToken() {
-		totalSupply = 100000000000000;
-		name = "Crypto Credit System Token";
-		decimals = 4;
-		symbol = "CCS";
-		version = "1.0";
-		balances[msg.sender] = totalSupply;
-	}
 }

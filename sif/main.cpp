@@ -10,6 +10,7 @@
 
 int main(int argc, char** argv){
     std::string ast_file_name, ast_json_file_name, output_file_name, visitor_arg;
+    bool silent_mode = false;
     try{
         cxxopts::Options options("Sif", "Solidity Source Code Instrumentation Framework");
         options.add_options()
@@ -18,7 +19,8 @@ int main(int argc, char** argv){
             //("b,abi", "ABI file name", cxxopts::value<std::string>())
             ("o,output","Output file name", cxxopts::value<std::string>())
             ("h,help", "Print help message")
-            ("v,visitor_arg", "AST visitor arguments", cxxopts::value<std::string>());
+            ("v,visitor_arg", "AST visitor arguments", cxxopts::value<std::string>())
+            ("s,silent", "Silent mode", cxxopts::value<bool>());
         auto result = options.parse(argc, argv);
         if (result.count("help")) {
             std::cout << options.help({"", "Group"}) << std::endl;
@@ -41,6 +43,13 @@ int main(int argc, char** argv){
         } else {
             visitor_arg = "";
         }
+        if (result.count("output")) {
+            output_file_name = result["output"].as<std::string>();
+        }
+        if (result.count("silent")) {
+            silent_mode = result["silent"].as<bool>();
+        }
+
         //if (result.count("abi")) {
         //    abi_file_name = result["abi"].as<std::string>();
         //} else {
@@ -73,7 +82,7 @@ int main(int argc, char** argv){
             nlohmann::json ast_json = nlohmann::json::parse(ast_json_content);
             //Sif::ASTAnalyser ast_analyser(ast_json, sol_name);
             //std::stringstream new_source = ast_analyser.analyse();
-            std::cout << sol_name << " " << ast_json.at("absolutePath") << std::endl;
+            //std::cout << sol_name << " " << ast_json.at("absolutePath") << std::endl;
             sol_name = Sif::Utils::substr_by_edge(new_line, "", "");
             ast_json_content = "";
         }
@@ -82,13 +91,15 @@ int main(int argc, char** argv){
         nlohmann::json ast_json = nlohmann::json::parse(ast_json_content);
         Sif::ASTAnalyser ast_analyser(ast_text_stream, ast_json, true, sol_name, visitor_arg);
         std::stringstream new_source = ast_analyser.analyse();
-        std::cout << sol_name << " " << ast_json.at("absolutePath") << std::endl;
+        //std::cout << sol_name << " " << ast_json.at("absolutePath") << std::endl;
         if (output_file_name != "") {
             std::ofstream output_file_stream(output_file_name);
             output_file_stream << new_source.str();
             output_file_stream.close();
         } else {
-            std::cout << new_source.str() << std::endl;
+            if (!silent_mode) {
+                std::cout << new_source.str() << std::endl;
+            }
         }
     }
     

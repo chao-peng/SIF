@@ -639,6 +639,7 @@ public:
     void delete_inherit_from(const unsigned int& x);
     void update_inherit_from(const unsigned int& x, const std::string& _inherit_from);
     std::string get_inherit_from(const unsigned int& x);
+    size_t num_inherit_from() const;
     void set_as_library();
     void set_as_non_library();
     bool contract_is_library() const;

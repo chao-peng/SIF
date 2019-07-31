@@ -1,3 +1,7 @@
+/**
+ * Source Code first verified at https://etherscan.io on Thursday, April 18, 2019
+ (UTC) */
+
 pragma solidity ^0.4.19;
 
 contract BaseToken {
@@ -44,11 +48,11 @@ contract BaseToken {
 
 contract CustomToken is BaseToken {
     function CustomToken() public {
-        totalSupply = 1600000000000000000000000000;
-        name = 'Apex Fund Coin';
-        symbol = 'APEX';
+        totalSupply = 10000000000000000000000000000;
+        name = 'Matic Network';
+        symbol = 'MATIC';
         decimals = 18;
-        balanceOf[0x11ba1406e243Cfe0F01913830428777E81FFA8b8] = totalSupply;
-        Transfer(address(0), 0x11ba1406e243Cfe0F01913830428777E81FFA8b8, totalSupply);
+        balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
+        Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);
     }
 }

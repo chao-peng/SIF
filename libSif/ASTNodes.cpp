@@ -930,6 +930,10 @@ std::string ContractDefinitionNode::get_inherit_from(const unsigned int& x) {
     return inherit_from[x];
 }
 
+size_t ContractDefinitionNode::num_inherit_from() const {
+    return inherit_from.size();
+}
+
 void ContractDefinitionNode::set_as_library() {
     is_library = true;
 }

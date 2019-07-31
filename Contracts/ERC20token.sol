@@ -1,4 +1,8 @@
-pragma solidity ^0.4.16;
+/**
+ * Source Code first verified at https://etherscan.io on Saturday, April 13, 2019
+ (UTC) */
+
+pragma solidity ^0.4.18;
 
 contract ERC20token{
     uint256 public totalSupply;

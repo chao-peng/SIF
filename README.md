@@ -1,9 +1,18 @@
+![CircleCI](https://img.shields.io/circleci/build/github/chao-peng/SIF/master?token=b3c677431ad059030f63a0b5a53599dc03f524fb)
 [![CircleCI](https://circleci.com/gh/chao-peng/SIF.svg?style=svg)](https://circleci.com/gh/chao-peng/SIF)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32646ea4bd9d4d54a743cba33acb33ec)](https://www.codacy.com/app/chao-peng/SIF?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chao-peng/SIF&amp;utm_campaign=Badge_Grade)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/chao-peng/SIF.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/chao-peng/SIF/context:cpp)
 [![MIT License](https://img.shields.io/github/license/chao-peng/sif)](https://raw.githubusercontent.com/chao-peng/SIF/master/LICENSE)
+![Maintenance](https://img.shields.io/maintenance/yes/2019)
+[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/pmYfkrD2M3yl5zZH)
+
 
 # SIF
 SIF (Solidity Instrumentation Framework) is a framework to query and instrument Solidity smart contracts.
+
+You can try SIF online by clicking
+
+[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/pmYfkrD2M3yl5zZH)
 
 With SIF, you can easily query syntactic information from the AST of smart contracts and make changes to it. SIF is able to generate source code from the AST of Solidity contracts reflecting code instrumentations.
 
@@ -20,7 +29,7 @@ cmake ..
 make
 ```
 
-The executable called sif will be in folder build/sif/sif
+The executable called sif will be in folder build/sif/
 
 # Usage
 
@@ -35,6 +44,17 @@ sif -a contract_name.ast -j contract_name.json -o generated_contract.sol
 ```
 
 If -o output_file_name is ommited, the generated code will be printed to the standard output (usually the screen).
+
+Command Line Options
+
+```
+  -a, --ast arg          AST in plain text file name
+  -j, --json arg         AST in compact JSON format file name
+  -o, --output arg       Output file name
+  -h, --help             Print help message
+  -v, --visitor_arg arg  extra arguments for the AST visitor
+  -s, --silent           Silent mode (does not print out the generated source code)
+```
 
 # Code Instrumentation and Analysis
 
@@ -72,13 +92,15 @@ In the directory **Tools**, we provide 7 examples of using SIF to analyse the so
 
 **Sif Rename** renames existing identifiers.
 
-Both tools can be compiled by replacing the original ASTVisitor.cpp by the one you want to use. Our graph generation is based on the graphviz toolkit. Make sure you have the tool on your machine and the command "dot" is available. On Ubuntu, you can simply install grahviz by using the command
+Tools can be compiled by replacing the original ASTVisitor.cpp by the one you want to use. The graph generation of **CG_Generator** and **CFG_Generator** is based on the graphviz toolkit. Make sure you have the tool on your machine and the command "dot" is available. On Ubuntu, you can simply install grahviz by using the command
 ```bash
 sudo apt install graphviz.
 ```
 
 # Contact 
 
-SIF is a very new framework for Solidity smart contract code instrumentation and analysis. We welcome all types of contributions to this project.
+SIF is a very new framework for Solidity smart contract code instrumentation and analysis. 
+
+We welcome issues and pull request raised on Github. All types of contributions to this project are highly appreciated.
 
 Contact details can be found at the author's homepage: [https://chao-peng.github.io](https://chao-peng.github.io)

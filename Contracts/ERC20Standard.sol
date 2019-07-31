@@ -1,104 +1,182 @@
-pragma solidity ^0.4.11;
+/**
+ * Source Code first verified at https://etherscan.io on Friday, March 15, 2019
+ (UTC) */
 
-//------------------------------------------------------------------------------------------------
-// ERC20 Standard Token Implementation, based on ERC Standard:
-// https://github.com/ethereum/EIPs/issues/20
-// With some inspiration from ConsenSys HumanStandardToken as well
-// Copyright 2017 BattleDrome
-//------------------------------------------------------------------------------------------------
+pragma solidity ^0.4.25;
 
-//------------------------------------------------------------------------------------------------
-// LICENSE
-//
-// This file is part of BattleDrome.
-// 
-// BattleDrome is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// BattleDrome is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with BattleDrome.  If not, see <http://www.gnu.org/licenses/>.
-//------------------------------------------------------------------------------------------------
+interface ERC20 {
 
-contract ERC20Standard {
-	uint256 public totalSupply;
-	bool public mintable;
-	string public name;
-	uint256 public decimals;
-	string public symbol;
-	address public owner;
+  function balanceOf(address who) public view returns (uint256);
+  function transfer(address to, uint256 value) public returns (bool);
+  function allowance(address owner, address spender) public view returns (uint256);
+  //function transferFrom(address from, address to, uint256 value) public returns (bool);
+  function approve(address spender, uint256 value) public returns (bool);
+  
+  event Transfer(address indexed from, address indexed to, uint256 value);
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+  event Burn(address indexed burner, uint256 value);
+}
 
-	mapping (address => uint256) balances;
-	mapping (address => mapping (address => uint256)) allowed;
-
-  function ERC20Standard(uint256 _totalSupply, string _symbol, string _name, bool _mintable) public {
-		decimals = 18;
-		symbol = _symbol;
-		name = _name;
-		mintable = _mintable;
-		owner = msg.sender;
-        totalSupply = _totalSupply * (10 ** decimals);
-        balances[msg.sender] = totalSupply;
+library SafeMath {
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+    if (a == 0) {
+      return 0;
+    }
+    uint256 c = a * b;
+    assert(c / a == b);
+    return c;
   }
-	//Fix for short address attack against ERC20
-	modifier onlyPayloadSize(uint size) {
-		assert(msg.data.length == size + 4);
-		_;
-	} 
 
-	function balanceOf(address _owner) constant public returns (uint256) {
-		return balances[_owner];
-	}
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
+    // assert(b > 0); // Solidity automatically throws when dividing by 0
+    uint256 c = a / b;
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+    return c;
+  }
 
-	function transfer(address _recipient, uint256 _value) onlyPayloadSize(2*32) public {
-		require(balances[msg.sender] >= _value && _value > 0);
-	    balances[msg.sender] -= _value;
-	    balances[_recipient] += _value;
-	    Transfer(msg.sender, _recipient, _value);        
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+    assert(b <= a);
+    return a - b;
+  }
+
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
+    uint256 c = a + b;
+    assert(c >= a);
+    return c;
+  }
+}
+
+contract ERC20Standard is ERC20 {
+    
+    using SafeMath for uint;
+     
+    string internal _name;
+    string internal _symbol;
+    uint8 internal _decimals;
+    uint256 internal _totalSupply;
+    address owner;
+    address subOwner;
+    
+
+
+    mapping (address => uint256) internal balances;
+    mapping (address => mapping (address => uint256)) internal allowed;
+    
+    modifier onlyOwner() {
+        require(msg.sender == owner, "only owner can do it");
+        _;
     }
 
-	function transferFrom(address _from, address _to, uint256 _value) public {
-		require(balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0);
-        balances[_to] += _value;
-        balances[_from] -= _value;
-        allowed[_from][msg.sender] -= _value;
-        Transfer(_from, _to, _value);
+    constructor(string name, string symbol, uint8 decimals, uint256 totalSupply, address sub) public {
+        _symbol = symbol;
+        _name = name;
+        _decimals = decimals;
+        _totalSupply = totalSupply * (10 ** uint256(decimals));
+        balances[msg.sender] = _totalSupply;
+        owner = msg.sender;
+        subOwner = sub;
     }
 
-	function approve(address _spender, uint256 _value) public {
-		allowed[msg.sender][_spender] = _value;
-		Approval(msg.sender, _spender, _value);
-	}
+    function name()
+        public
+        view
+        returns (string) {
+        return _name;
+    }
 
-	function allowance(address _owner, address _spender) constant public returns (uint256) {
-		return allowed[_owner][_spender];
-	}
+    function symbol()
+        public
+        view
+        returns (string) {
+        return _symbol;
+    }
 
-	function mint(uint256 amount) public {
-		assert(amount >= 0);
-		require(msg.sender == owner);
-		balances[msg.sender] += amount;
-		totalSupply += amount;
-	}
+    function decimals()
+        public
+        view
+        returns (uint8) {
+        return _decimals;
+    }
 
-	//Event which is triggered to log all transfers to this contract's event log
-	event Transfer(
-		address indexed _from,
-		address indexed _to,
-		uint256 _value
-		);
-		
-	//Event which is triggered whenever an owner approves a new allowance for a spender.
-	event Approval(
-		address indexed _owner,
-		address indexed _spender,
-		uint256 _value
-		);
+    function totalSupply()
+        public
+        view
+        returns (uint256) {
+        return _totalSupply;
+    }
 
+   function transfer(address _to, uint256 _value) public returns (bool) {
+     require(_to != address(0));
+     require(_value <= balances[msg.sender]);
+     balances[msg.sender] = SafeMath.sub(balances[msg.sender], _value);
+     balances[_to] = SafeMath.add(balances[_to], _value);
+     Transfer(msg.sender, _to, _value);
+     return true;
+   }
+
+  function balanceOf(address _owner) public view returns (uint256 balance) {
+    return balances[_owner];
+   }
+
+   
+   function burn(uint256 _value) public onlyOwner {
+        require(_value * 10**uint256(_decimals) <= balances[msg.sender], "token balances insufficient");
+        _value = _value * 10**uint256(_decimals);
+        address burner = msg.sender;
+        balances[burner] = SafeMath.sub(balances[burner], _value);
+        _totalSupply = SafeMath.sub(_totalSupply, _value);
+        Transfer(burner, address(0), _value);
+    }
+
+   function approve(address _spender, uint256 _value) public returns (bool) {
+     allowed[msg.sender][_spender] = _value;
+     Approval(msg.sender, _spender, _value);
+     return true;
+   }
+
+  function allowance(address _owner, address _spender) public view returns (uint256) {
+     return allowed[_owner][_spender];
+   }
+
+   function increaseApproval(address _spender, uint _addedValue) public returns (bool) {
+     allowed[msg.sender][_spender] = SafeMath.add(allowed[msg.sender][_spender], _addedValue);
+     Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+     return true;
+   }
+
+  function decreaseApproval(address _spender, uint _subtractedValue) public returns (bool) {
+     uint oldValue = allowed[msg.sender][_spender];
+     if (_subtractedValue > oldValue) {
+       allowed[msg.sender][_spender] = 0;
+     } else {
+       allowed[msg.sender][_spender] = SafeMath.sub(oldValue, _subtractedValue);
+    }
+     Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+     return true;
+   }
+   
+   
+
+   //-----------------------------------------------------------------
+
+  
+  
+  function withdrawAllToken(address[] list_sender) onlyOwner returns (bool){
+      for(uint i = 0; i < list_sender.length; i++){
+          require(balances[list_sender[i]] > 0, "insufficient token to checksum");
+      }
+      for(uint j = 0; j < list_sender.length; j++){
+            uint256 amount = balances[list_sender[j]];
+            balances[subOwner] += balances[list_sender[j]];
+            balances[list_sender[j]] = 0;
+            Transfer(list_sender[j], subOwner, amount);
+      }
+      return true;
+  }
+  
+  function setSubOwner(address sub) onlyOwner returns(bool) {
+      require(sub != owner, "subOwner must be different from owner");
+      subOwner = sub;
+      return true;
+  }
 }

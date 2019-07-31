@@ -62,9 +62,9 @@ void linkEdge(const int& _from, const int& _to, const bool& _edgeType = true) {
     }
 }
 
-void before() {
+void before(std::string arg) {
     lastBlockNo = 0;
-    functionName = "main";
+    functionName = arg;
     endBlockNeeded = false;
     branchDepth = 0;
 }

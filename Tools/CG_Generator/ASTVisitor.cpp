@@ -13,7 +13,7 @@ namespace Sif {
 std::map<std::string, std::set<std::string> > cg;
 std::string currentFunctionName;
 
-void before() {
+void before(std::string arg) {
     currentFunctionName = "";
 }
 
