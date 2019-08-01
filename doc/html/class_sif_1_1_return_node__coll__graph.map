@@ -1,0 +1,3 @@
+<map id="Sif::ReturnNode" name="Sif::ReturnNode">
+<area shape="rect" id="node2" href="$class_sif_1_1_a_s_t_node.html" title="{Sif::ASTNode\n|# node_type\l# ast_nodes\l# text_before\l# text_after\l|+ ASTNode()\l+ source_code()\l+ get_node_type()\l+ size()\l+ insert_text_before()\l+ insert_text_after()\l+ get_added_text_before()\l+ get_added_text_after()\l# append_sub_node()\l# delete_sub_node()\l# update_sub_node()\l# get_sub_node()\l# operator[]()\l}" alt="" coords="5,5,177,303"/>
+</map>

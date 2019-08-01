@@ -1,0 +1,5 @@
+<map id="Sif::ASTAnalyser::handle_enum_definition" name="Sif::ASTAnalyser::handle_enum_definition">
+<area shape="rect" id="node2" href="$class_sif_1_1_a_s_t_analyser.html#a07098f9b9751be0517108bb2edf1e6c6" title="Sif::ASTAnalyser::get\l_current_indentation" alt="" coords="227,5,371,47"/>
+<area shape="rect" id="node3" href="$class_sif_1_1_a_s_t_analyser.html#a0237b284ec56b2fb8e61209b366c1185" title="Sif::ASTAnalyser::get\l_next_token" alt="" coords="227,71,371,112"/>
+<area shape="rect" id="node4" href="$class_sif_1_1_a_s_t_analyser.html#a4038c985f449316b18b15c5a02e6f5c4" title="Sif::ASTAnalyser::handle\l_enum_value" alt="" coords="217,136,381,177"/>
+</map>

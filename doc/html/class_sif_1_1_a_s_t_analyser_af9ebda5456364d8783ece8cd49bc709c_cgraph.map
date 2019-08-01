@@ -1,0 +1,20 @@
+<map id="Sif::ASTAnalyser::handle_unary_operation" name="Sif::ASTAnalyser::handle_unary_operation">
+<area shape="rect" id="node2" href="$class_sif_1_1_a_s_t_analyser.html#a0237b284ec56b2fb8e61209b366c1185" title="Sif::ASTAnalyser::get\l_next_token" alt="" coords="1347,414,1491,455"/>
+<area shape="rect" id="node3" href="$class_sif_1_1_a_s_t_analyser.html#ad6225b30136c05d673dd48b4164ec823" title="Sif::ASTAnalyser::get\l_value_equivalent_node" alt="" coords="217,349,379,390"/>
+<area shape="rect" id="node4" href="$class_sif_1_1_a_s_t_analyser.html#a4c12bce92aaf0d3f868d64704f804a0e" title="Sif::ASTAnalyser::handle\l_assignment" alt="" coords="427,189,591,230"/>
+<area shape="rect" id="node5" href="$class_sif_1_1_a_s_t_analyser.html#a5c7724e5c4c5fb865897c61d2189c299" title="Sif::ASTAnalyser::handle\l_binary_operation" alt="" coords="427,254,591,295"/>
+<area shape="rect" id="node6" href="$class_sif_1_1_a_s_t_analyser.html#ac598ff3d6d89d148e59d865c65205863" title="Sif::ASTAnalyser::handle\l_conditional" alt="" coords="427,319,591,361"/>
+<area shape="rect" id="node7" href="$class_sif_1_1_a_s_t_analyser.html#a359255c6692ed719dad15d8f5855a502" title="Sif::ASTAnalyser::handle\l_elementary_type_name_expression" alt="" coords="856,363,1087,405"/>
+<area shape="rect" id="node8" href="$class_sif_1_1_a_s_t_analyser.html#afb26e0a30d66de44ecd6b2a5a3611808" title="Sif::ASTAnalyser::handle\l_function_call" alt="" coords="641,491,805,533"/>
+<area shape="rect" id="node10" href="$class_sif_1_1_a_s_t_analyser.html#a880a35d62cd36647bcbed91d554a149a" title="Sif::ASTAnalyser::handle\l_identifier" alt="" coords="1135,414,1299,455"/>
+<area shape="rect" id="node11" href="$class_sif_1_1_a_s_t_analyser.html#af0b3bd37212cc9c804dc5f71af83f39c" title="Sif::ASTAnalyser::handle\l_index_access" alt="" coords="427,562,591,603"/>
+<area shape="rect" id="node12" href="$class_sif_1_1_a_s_t_analyser.html#aa853c175628def22701f5f8379aca65c" title="Sif::ASTAnalyser::handle\l_literal" alt="" coords="427,58,591,99"/>
+<area shape="rect" id="node14" href="$class_sif_1_1_a_s_t_analyser.html#ac6d88ab2715005088876ae5350be55e2" title="Sif::ASTAnalyser::handle\l_member_access" alt="" coords="427,123,591,165"/>
+<area shape="rect" id="node15" href="$class_sif_1_1_a_s_t_analyser.html#aa090a770b08db838aa2e2d2234099365" title="Sif::ASTAnalyser::handle\l_new_expression" alt="" coords="427,742,591,783"/>
+<area shape="rect" id="node19" href="$class_sif_1_1_a_s_t_analyser.html#af3ae9a07b06d963e2b46711df4ede716" title="Sif::ASTAnalyser::handle\l_tuple_expression" alt="" coords="889,633,1053,674"/>
+<area shape="rect" id="node9" href="$class_sif_1_1_a_s_t_analyser.html#a07098f9b9751be0517108bb2edf1e6c6" title="Sif::ASTAnalyser::get\l_current_indentation" alt="" coords="1145,683,1289,725"/>
+<area shape="rect" id="node13" href="$class_sif_1_1_a_s_t_analyser.html#abbfa05d314b99b966b7b4fe00d07445b" title="Sif::ASTAnalyser::remove\l_escapes" alt="" coords="639,43,808,85"/>
+<area shape="rect" id="node16" href="$class_sif_1_1_a_s_t_analyser.html#a63c2199cd6f06f8b5d828d541a94812b" title="Sif::ASTAnalyser::get\l_type_name" alt="" coords="651,801,795,842"/>
+<area shape="rect" id="node17" href="$class_sif_1_1_a_s_t_analyser.html#aa85d51d23386f7b68a5b92396762a5a1" title="Sif::ASTAnalyser::handle\l_parameter_list" alt="" coords="889,801,1053,842"/>
+<area shape="rect" id="node18" href="$class_sif_1_1_a_s_t_analyser.html#acb94e753f13ea55f66ca191aef2ab307" title="Sif::ASTAnalyser::handle\l_variable_declaration" alt="" coords="1135,851,1299,893"/>
+</map>

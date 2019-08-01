@@ -4,6 +4,7 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/chao-peng/SIF.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/chao-peng/SIF/context:cpp)
 [![MIT License](https://img.shields.io/github/license/chao-peng/sif)](https://raw.githubusercontent.com/chao-peng/SIF/master/LICENSE)
 ![Maintenance](https://img.shields.io/maintenance/yes/2019)
+[![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](https://chao-peng.github.io/sif/index.html)
 [![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/PnaL6bO9zipKRuKu)
 
 
