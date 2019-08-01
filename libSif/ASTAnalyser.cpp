@@ -28,11 +28,16 @@ ASTAnalyser::ASTAnalyser(std::stringstream& _ast_sstream, nlohmann::json& _jsona
             ++ptr_ast_line;
         }
     }
+    do_not_produce_source = false;
 }
 
-std::stringstream ASTAnalyser::analyse() {
+void ASTAnalyser::set_do_not_produce_source(bool _do_not_produce_source) {
+    do_not_produce_source = _do_not_produce_source;
+}
+
+RootNodePtr ASTAnalyser::analyse() {
     before(visitor_arg);
-    std::stringstream result;
+    std::stringstream import, pragma;
     std::string line;
     while (ptr_ast_line != ast_lines.end()) {
         std::string keyword = Utils::retrieve_string_element(*ptr_ast_line, 0, " ");
@@ -43,14 +48,14 @@ std::stringstream ASTAnalyser::analyse() {
             get_next_token(TokenSource);
             line = Utils::substr_by_edge(*ptr_ast_line, "Source: \"", "\"");
             remove_escapes(line);
-            result << line << "\n";
+            pragma << line;
         } else if (keyword == TokenImportDirective ) {
             // same as TokenPragmaDirective
             // using original source
             get_next_token(TokenSource);
             line = Utils::substr_by_edge(*ptr_ast_line, "Source: \"", "\"");
             remove_escapes(line); 
-            result << line << "\n";
+            import << line;
         } else if (keyword == TokenContractDefinition ) {
             std::string contract_name = Utils::retrieve_string_element(*ptr_ast_line, 1, " ");
             contract_name = Utils::substr_by_edge(contract_name, "\"", "\"");
@@ -243,14 +248,23 @@ std::stringstream ASTAnalyser::analyse() {
     }
 
     Utils::debug_info("File processing finished");
-    Indentation indentation;
-    for (auto it_contract = contracts.begin(); it_contract != contracts.end(); ++it_contract) {
-        result << (*it_contract)->source_code(indentation);
-    }
 
-    Utils::debug_info("New code generated");
+    RootNodePtr ast_root = std::make_shared<RootNode>();
+    ast_root->set_import(import.str());
+    ast_root->set_pragma(pragma.str());
+
+    if (!do_not_produce_source) {
+        Indentation indentation;
+        for (auto it_contract = contracts.begin(); it_contract != contracts.end(); ++it_contract) {
+            ast_root->add_field(*it_contract);
+            // result << (*it_contract)->source_code(indentation);
+        }
+
+        Utils::debug_info("New code generated");
+    }
+    
     after();
-    return result;
+    return ast_root;
 }
 
 void ASTAnalyser::get_next_token(const std::string& token) {

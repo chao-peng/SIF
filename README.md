@@ -4,7 +4,7 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/chao-peng/SIF.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/chao-peng/SIF/context:cpp)
 [![MIT License](https://img.shields.io/github/license/chao-peng/sif)](https://raw.githubusercontent.com/chao-peng/SIF/master/LICENSE)
 ![Maintenance](https://img.shields.io/maintenance/yes/2019)
-[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/pmYfkrD2M3yl5zZH)
+[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/PnaL6bO9zipKRuKu)
 
 
 # SIF
@@ -12,7 +12,7 @@ SIF (Solidity Instrumentation Framework) is a framework to query and instrument 
 
 You can try SIF online by clicking
 
-[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/pmYfkrD2M3yl5zZH)
+[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/PnaL6bO9zipKRuKu)
 
 With SIF, you can easily query syntactic information from the AST of smart contracts and make changes to it. SIF is able to generate source code from the AST of Solidity contracts reflecting code instrumentations.
 

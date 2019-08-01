@@ -114,12 +114,52 @@ ASTNodePtr ASTNode::operator[] (const unsigned int& x) {
 std::string RootNode::source_code(Indentation& _indentation) {
     visit(this);
     std::stringstream result;
-    result << text_before;
+    result << text_before << pragma << "\n" << import << "\n";
     for (auto it = ast_nodes.begin(); it != ast_nodes.end(); ++it) {
         result << (*it)->source_code(_indentation);
     }
     result << text_after;
     return result.str();
+}
+
+void RootNode::set_import(const std::string& _import) {
+    import = _import;
+}
+
+std::string RootNode::get_import() const{
+    return import;
+}
+
+void RootNode::set_pragma(const std::string& _pragma) {
+    pragma = _pragma;
+}
+
+std::string RootNode::get_pragma() const{
+    return pragma;
+}
+
+void RootNode::add_field(const ASTNodePtr& _node) {
+    append_sub_node(_node);
+}
+
+size_t RootNode::num_fields() {
+    return size();
+}
+
+ASTNodePtr RootNode::operator[] (const unsigned int& x) {
+    return get_sub_node(x);
+}
+
+void RootNode::update_field(const unsigned int& x, const ASTNodePtr& _node) {
+    update_sub_node(x, _node);
+}
+
+void RootNode::delete_field(const unsigned int& x) {
+    delete_sub_node(x);
+}
+
+ASTNodePtr RootNode::get_field(const unsigned int& x) {
+    return get_sub_node(x);
 }
 
 std::string PragmaDirectiveNode::source_code(Indentation& _indentation) {
@@ -251,9 +291,9 @@ std::string VariableDeclarationStatementNode::source_code(Indentation& _indentat
     std::string result = text_before;
     Indentation empty_indentation(0);
     if (value == nullptr) {
-        result = _indentation + decl->source_code(empty_indentation) + ";";
+        result = result + _indentation + decl->source_code(empty_indentation) + ";";
     } else {
-        result = _indentation + decl->source_code(empty_indentation) + " = " + value->source_code(empty_indentation) + ";";
+        result = result + _indentation + decl->source_code(empty_indentation) + " = " + value->source_code(empty_indentation) + ";";
     }
     result = result + text_after;
     return result;

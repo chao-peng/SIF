@@ -156,6 +156,7 @@ const std::list<std::string> StatementTokenList{
 
 enum NodeType {
     NodeTypeSourceUnit,
+    NodeTypeRoot,
     NodeTypePragmaDirective,
     NodeTypeImportDirective,
     NodeTypeUsingForDirective,
@@ -256,8 +257,22 @@ protected:
 
 class RootNode : public ASTNode {
 public:
-    RootNode() : ASTNode(NodeTypeSourceUnit) {}
+    RootNode() : ASTNode(NodeTypeRoot), import(""), pragma("") {}
     std::string source_code(Indentation& _indentation);
+    void set_import(const std::string& _import);
+    std::string get_import() const;
+    void set_pragma(const std::string& _pragma);
+    std::string get_pragma() const;
+
+    void add_field(const ASTNodePtr& _node);
+    void delete_field(const unsigned int& x);
+    void update_field(const unsigned int& x, const ASTNodePtr& _node);
+    ASTNodePtr get_field(const unsigned int& x);
+    size_t num_fields();
+    ASTNodePtr operator[] (const unsigned int& x);
+private:
+    std::string import;
+    std::string pragma;
 };
 typedef std::shared_ptr<RootNode> RootNodePtr;
 
