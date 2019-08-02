@@ -75,6 +75,11 @@ void visit(ASTNode* node) {
 
 Each AST class has sufficient functions to retrieve information and make changes to the AST. Function prototypes can be found in LibSif/ASTNode.hpp.
 
+# Documentation
+
+We started writing the documentation for SIF but it is still in progress. A preliminary version can be found here:[![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](https://chao-peng.github.io/sif/index.html).
+
+
 # Tools
 
 In the directory **Tools**, we provide 7 examples of using SIF to analyse the source code. You can learn how to use SIF to instrument smart contracts by reading our implementation of these tools.
