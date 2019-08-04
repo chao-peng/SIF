@@ -330,13 +330,13 @@ void IdentifierNode::set_name(const std::string& _name) {
 
 std::string StructDefinitionNode::source_code(Indentation& _indentation) {
     visit(this);
-    std::string result = text_before + _indentation +  "struct " + name + "{\n";
-    _indentation++;
+    std::string result = text_before + _indentation +  "struct " + name + " {\n";
+    ++_indentation;
     for (auto it = ast_nodes.begin(); it != ast_nodes.end(); ++it) {
         result = result + (*it)->source_code(_indentation) + ";\n";
     }
-    _indentation--;
-    result = _indentation + result + "}\n" + text_after;
+    --_indentation;
+    result = result + _indentation + "}\n" + text_after;
     return result;
 }
 
