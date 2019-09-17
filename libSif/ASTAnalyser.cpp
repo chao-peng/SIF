@@ -262,7 +262,8 @@ RootNodePtr ASTAnalyser::analyse() {
 
         Utils::debug_info("New code generated");
     }
-    
+    Sif::Indentation indentation;
+    ast_root->source_code(indentation);
     after();
     return ast_root;
 }
