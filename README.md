@@ -67,7 +67,7 @@ Here is an example of implement the code, which prints all function names and ch
 void visit(ASTNode* node) {
     if (node->get_node_type() == NodeTypeFunctionDefinition) {
         FunctionDefinitionNode* fd = (FunctionDefinitionNode*) node;
-        std::cout << fd.get_name();
+        std::cout << fd->get_name();
         fd->set_name("func");
     }
 }
