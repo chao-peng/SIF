@@ -1,3 +1,13 @@
+- [SIF](#sif)
+- [Pre-requisite](#pre-requisite)
+- [Usage](#usage)
+- [Code Instrumentation and Analysis](#code-instrumentation-and-analysis)
+- [Documentation](#documentation)
+- [Tools](#tools)
+- [Cite Our Work](#cite-our-work)
+- [Contact](#contact)
+
+
 ![CircleCI](https://img.shields.io/circleci/build/github/chao-peng/SIF/master?token=b3c677431ad059030f63a0b5a53599dc03f524fb)
 [![CircleCI](https://circleci.com/gh/chao-peng/SIF.svg?style=svg)](https://circleci.com/gh/chao-peng/SIF)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32646ea4bd9d4d54a743cba33acb33ec)](https://www.codacy.com/app/chao-peng/SIF?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chao-peng/SIF&amp;utm_campaign=Badge_Grade)
@@ -102,6 +112,23 @@ Tools can be compiled by replacing the original ASTVisitor.cpp by the one you wa
 ```bash
 sudo apt install graphviz.
 ```
+
+# Cite Our Work
+
+If you use SIF for your research, please kindly cite our work describing the SIF framework in your paper.
+
+```bibtex
+@inproceedings{peng2019sif,
+  title={SIF: A Framework for Solidity Contract Instrumentation and Analysis},
+  author={Peng, Chao and Akca, Sefa and Rajan, Ajitha},
+  booktitle={2019 26th Asia-Pacific Software Engineering Conference (APSEC)},
+  pages={466--473},
+  year={2019},
+  organization={IEEE}
+}
+```
+
+> Peng, C., Akca, S. and Rajan, A., 2019, December. SIF: A Framework for Solidity Contract Instrumentation and Analysis. In 2019 26th Asia-Pacific Software Engineering Conference (APSEC) (pp. 466-473). IEEE.
 
 # Contact 
 
