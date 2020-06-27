@@ -1,3 +1,22 @@
+# Update
+
+To simplify the usage of SIF, catch up official syntactic updates and minimise dependencies, SIF will be reimplemented in JavaScript based on the official solc-js compiler.
+
+## Take List
+
+- [ ] Code template
+- [ ] AST traversal
+- [ ] Code generation
+- [ ] Plug-ins for instrumentation
+- [ ] Basic tools
+
+I'm working on SIF during my spare time. Please kindly allow some delays.
+
+# Table of Contents
+
+- [Update](#update)
+  - [Take List](#take-list)
+- [Table of Contents](#table-of-contents)
 - [SIF](#sif)
 - [Pre-requisite](#pre-requisite)
 - [Usage](#usage)
